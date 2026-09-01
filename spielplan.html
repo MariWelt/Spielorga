@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spielplan · Dienste</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#F6F2E9;
+    --card:#FFFDF8;
+    --ink:#1D2A32;
+    --court:#1E4F6B;
+    --court-dark:#163B52;
+    --gold:#E3A73C;
+    --green:#3F7A5C;
+    --coral:#C1543A;
+    --line:#E4DCC9;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Work Sans',sans-serif;
+    line-height:1.45;
+  }
+  h1,h2,h3,.display{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    letter-spacing:.01em;
+    margin:0;
+  }
+  header.top{
+    background:var(--court);
+    color:#fff;
+    padding:18px 20px;
+  }
+  header.top .row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    max-width:760px;
+    margin:0 auto;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  header.top h1{
+    font-size:1.5rem;
+    text-transform:uppercase;
+  }
+  nav.tabs{
+    display:flex;
+    gap:4px;
+  }
+  nav.tabs button{
+    background:transparent;
+    border:1px solid rgba(255,255,255,.35);
+    color:#fff;
+    font-family:'Oswald',sans-serif;
+    font-size:.85rem;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    padding:7px 12px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  nav.tabs button.active{
+    background:#fff;
+    color:var(--court-dark);
+    border-color:#fff;
+  }
+  main{
+    max-width:760px;
+    margin:0 auto;
+    padding:22px 18px 60px;
+  }
+  .toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:16px;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  button.primary{
+    background:var(--court);
+    color:#fff;
+    border:none;
+    padding:10px 16px;
+    font-family:'Oswald',sans-serif;
+    font-size:.9rem;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  button.primary:hover{background:var(--court-dark);}
+  button.ghost{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:8px 12px;
+    border-radius:3px;
+    cursor:pointer;
+    font-family:'Work Sans',sans-serif;
+    font-size:.85rem;
+  }
+  button.ghost:hover{border-color:var(--court);}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:5px solid var(--gold);
+    border-radius:4px;
+    padding:16px 18px;
+    margin-bottom:14px;
+  }
+  .card.full{border-left-color:var(--green);}
+  .card.clickable{cursor:pointer;}
+  .card.clickable:hover{border-left-color:var(--court);}
+  .card .meta{
+    font-size:.85rem;
+    color:#5b6a72;
+    margin-top:3px;
+  }
+  .card .status{
+    font-family:'Oswald',sans-serif;
+    font-size:.8rem;
+    text-transform:uppercase;
+    margin-top:8px;
+    color:var(--court-dark);
+  }
+  .bar-bg{
+    background:#EFE9D8;
+    border-radius:3px;
+    height:6px;
+    margin-top:6px;
+    overflow:hidden;
+  }
+  .bar-fill{
+    height:100%;
+    background:var(--gold);
+  }
+  .bar-fill.full{background:var(--green);}
+  .empty{
+    text-align:center;
+    padding:40px 20px;
+    color:#7a8790;
+    font-size:.95rem;
+  }
+  .dienst-block{
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:14px 16px;
+    margin-bottom:12px;
+    background:var(--card);
+  }
+  .dienst-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .dienst-head .name{font-family:'Oswald',sans-serif;font-size:1.05rem;}
+  .dienst-head .punkte{font-size:.82rem;color:var(--court-dark);font-weight:600;}
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin:10px 0;
+  }
+  .chip{
+    background:var(--sand);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:4px 10px 4px 12px;
+    font-size:.85rem;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .chip .x{cursor:pointer;color:var(--coral);font-weight:700;}
+  .chip.lucky{background:#FBF0DA;}
+  .entry-row{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .entry-row input[type=text]{
+    flex:1;
+    min-width:140px;
+    padding:8px 10px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    font-family:'Work Sans',sans-serif;
+    font-size:.9rem;
+  }
+  label{
+    font-size:.82rem;
+    color:#5b6a72;
+    display:block;
+    margin-bottom:4px;
+  }
+  .field{margin-bottom:14px;}
+  input[type=date],input[type=time],input[type=number],input[type=text]{
+    width:100%;
+    padding:9px 10px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    font-family:'Work Sans',sans-serif;
+    font-size:.92rem;
+    background:#fff;
+  }
+  .katalog-pick{
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:10px 12px;
+    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .katalog-pick input[type=checkbox]{width:18px;height:18px;}
+  .katalog-pick .lbl{flex:1;min-width:120px;}
+  .katalog-pick input[type=number]{width:70px;}
+  table{width:100%;border-collapse:collapse;margin-top:6px;}
+  th,td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--line);font-size:.92rem;}
+  th{font-family:'Oswald',sans-serif;font-size:.78rem;text-transform:uppercase;color:#5b6a72;}
+  .points-num{font-family:'Oswald',sans-serif;font-size:1rem;}
+  .progress-cell{width:38%;}
+  .settings-section{margin-bottom:28px;}
+  .settings-section h3{font-size:1.05rem;margin-bottom:10px;}
+  .settings-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:8px;
+  }
+  .settings-row input[type=text]{flex:2;}
+  .settings-row input[type=number]{flex:1;}
+  .backlink{
+    background:none;
+    border:none;
+    color:var(--court);
+    font-family:'Oswald',sans-serif;
+    font-size:.9rem;
+    text-transform:uppercase;
+    cursor:pointer;
+    padding:0;
+    margin-bottom:14px;
+    display:inline-block;
+  }
+  .hint{font-size:.82rem;color:#8a7550;margin-top:6px;}
+  .badge-target{
+    background:rgba(255,255,255,.15);
+    border-radius:3px;
+    padding:6px 10px;
+    font-size:.82rem;
+    font-family:'Oswald',sans-serif;
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+let konfig = null;
+let spieltage = null;
+let view = { name: 'uebersicht', spieltagId: null };
+
+function defaultKonfig(){
+  return {
+    diensteKatalog: [
+      { name: 'Schiedsrichter', punkte: 3 },
+      { name: 'Zeitnehmer', punkte: 2 },
+      { name: 'Aufbau', punkte: 2 },
+      { name: 'Abbau', punkte: 2 },
+      { name: 'Kuchen/Pause', punkte: 1 }
+    ],
+    kader: [],
+    saisonziel: 15
+  };
+}
+
+const SEED_KADER = ['Marius','Jojo','Clemens','Küchi','Jakob','Konsti','Marc','Freddi','Konrad','David','Noah','Elias','Paul'];
+const SEED_DIENSTE = [
+  { name: 'Schreiber', punkte: 1 },
+  { name: 'Ballroller', punkte: 1 },
+  { name: 'Aufbau', punkte: 3 },
+  { name: 'Abbau', punkte: 3 },
+  { name: 'Werbung', punkte: 1 },
+  { name: 'Buffet', punkte: 1 },
+  { name: 'Werbeaufsteller', punkte: 1 }
+];
+
+async function ensureSeedData(){
+  let changed = false;
+  SEED_KADER.forEach(n=>{
+    if(!konfig.kader.some(k=>k.toLowerCase()===n.toLowerCase())){
+      konfig.kader.push(n);
+      changed = true;
+    }
+  });
+  SEED_DIENSTE.forEach(sd=>{
+    const existing = konfig.diensteKatalog.find(d=>d.name.toLowerCase()===sd.name.toLowerCase());
+    if(existing){
+      if(existing.punkte !== sd.punkte){ existing.punkte = sd.punkte; changed = true; }
+    }else{
+      konfig.diensteKatalog.push({ name: sd.name, punkte: sd.punkte });
+      changed = true;
+    }
+  });
+  if(changed) await saveKonfig();
+}
+
+function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+function withTimeout(promise, ms){
+  return Promise.race([
+    promise,
+    new Promise((_,reject)=> setTimeout(()=>reject(new Error('timeout')), ms))
+  ]);
+}
+
+// ---------- GitHub-Speicher ----------
+const GITHUB_OWNER = 'MariWelt';
+const GITHUB_REPO = 'Spielorga';
+const GITHUB_TOKEN = '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';
+const DATA_PATH = 'data.json';
+const API_URL = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${DATA_PATH}`;
+
+function b64EncodeUtf8(str){ return btoa(unescape(encodeURIComponent(str))); }
+function b64DecodeUtf8(str){ return decodeURIComponent(escape(atob(str.replace(/\n/g,'')))); }
+
+async function githubGet(){
+  const res = await fetch(API_URL, {
+    headers: {
+      'Authorization': `Bearer ${GITHUB_TOKEN}`,
+      'Accept': 'application/vnd.github+json'
+    }
+  });
+  if(res.status === 404){ return { exists:false, sha:null, data:null }; }
+  if(!res.ok){ throw new Error('GitHub GET fehlgeschlagen: '+res.status); }
+  const json = await res.json();
+  const data = JSON.parse(b64DecodeUtf8(json.content));
+  return { exists:true, sha: json.sha, data };
+}
+
+async function githubSave(data){
+  const current = await githubGet();
+  const body = {
+    message: 'Spielplan aktualisiert',
+    content: b64EncodeUtf8(JSON.stringify(data, null, 2))
+  };
+  if(current.exists) body.sha = current.sha;
+  const res = await fetch(API_URL, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${GITHUB_TOKEN}`,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  if(!res.ok){
+    const t = await res.text();
+    throw new Error('GitHub PUT fehlgeschlagen: '+res.status+' '+t);
+  }
+  return true;
+}
+
+let dataEverLoaded = false;
+let letzterFehler = false;
+
+async function loadData(){
+  let erfolg = false;
+  for(let i=0;i<4 && !erfolg;i++){
+    try{
+      const r = await withTimeout(githubGet(), 8000);
+      if(r.exists){
+        konfig = r.data.konfig || defaultKonfig();
+        spieltage = r.data.spieltage || [];
+      }else if(!dataEverLoaded){
+        konfig = defaultKonfig();
+        spieltage = [];
+      }
+      erfolg = true;
+    }catch(e){
+      if(i<3) await wait(700);
+    }
+  }
+  if(!dataEverLoaded && !erfolg){
+    konfig = defaultKonfig();
+    spieltage = [];
+  }
+  letzterFehler = !erfolg;
+  dataEverLoaded = true;
+  return erfolg;
+}
+
+let speicherFehler = false;
+
+async function speichereAlles(){
+  for(let i=0;i<3;i++){
+    try{
+      await withTimeout(githubSave({ konfig, spieltage }), 10000);
+      speicherFehler = false;
+      return true;
+    }catch(e){
+      if(i<2) await wait(700);
+    }
+  }
+  speicherFehler = true;
+  return false;
+}
+
+async function saveKonfig(){ return speichereAlles(); }
+async function saveSpieltage(){ return speichereAlles(); }
+
+function fmtDatum(d){
+  if(!d) return '';
+  const [y,m,day] = d.split('-');
+  return `${day}.${m}.${y}`;
+}
+
+function dienstBesetzt(dienst){
+  return dienst.eingetragen.length >= dienst.benoetigt;
+}
+function spieltagVollstaendig(sp){
+  return sp.dienste.every(dienstBesetzt);
+}
+function offenePlaetze(sp){
+  return sp.dienste.reduce((sum,d)=> sum + Math.max(0, d.benoetigt - d.eingetragen.length), 0);
+}
+function gesamtPlaetze(sp){
+  return sp.dienste.reduce((sum,d)=> sum + d.benoetigt, 0);
+}
+function besetztePlaetze(sp){
+  return sp.dienste.reduce((sum,d)=> sum + d.eingetragen.length, 0);
+}
+
+function punkteProSpieler(){
+  const map = {};
+  konfig.kader.forEach(n => map[n] = 0);
+  spieltage.forEach(sp=>{
+    sp.dienste.forEach(d=>{
+      d.eingetragen.forEach(e=>{
+        map[e.name] = (map[e.name]||0) + d.punkte;
+      });
+    });
+  });
+  return map;
+}
+
+function setView(v){ view = v; render(); }
+
+function render(){
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <header class="top">
+      <div class="row">
+        <h1>Spielplan</h1>
+        <div class="badge-target">Saisonziel: ${konfig.saisonziel} Punkte</div>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <nav class="tabs">
+          <button class="${view.name==='uebersicht'?'active':''}" onclick="setView({name:'uebersicht'})">Übersicht</button>
+          <button class="${view.name==='punkte'?'active':''}" onclick="setView({name:'punkte'})">Punkte</button>
+          <button class="${view.name==='einstellungen'?'active':''}" onclick="setView({name:'einstellungen'})">Einstellungen</button>
+        </nav>
+        <button class="ghost" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.35);" onclick="refresh()">↻ Aktualisieren</button>
+      </div>
+      ${letzterFehler? '<div style="margin-top:8px;font-size:.8rem;color:#FBDCA0;">⚠ Aktualisieren hat gerade nicht geklappt – dein bisheriger Stand wurde nicht verändert. Einfach nochmal versuchen.</div>' : ''}
+      ${speicherFehler? '<div style="margin-top:8px;font-size:.8rem;color:#FBDCA0;">⚠ Speichern hat gerade nicht geklappt. Deine letzte Änderung ist nur lokal auf deinem Gerät – bitte gleich nochmal versuchen oder unter Einstellungen eine Sicherung herunterladen.</div>' : ''}
+    </header>
+    <main id="main"></main>
+  `;
+  const main = document.getElementById('main');
+  if(view.name==='uebersicht') main.innerHTML = renderUebersicht();
+  else if(view.name==='neu') main.innerHTML = renderNeuerSpieltag();
+  else if(view.name==='bearbeiten') main.innerHTML = renderBearbeiten(view.spieltagId);
+  else if(view.name==='detail') main.innerHTML = renderDetail(view.spieltagId);
+  else if(view.name==='punkte') main.innerHTML = renderPunkte();
+  else if(view.name==='einstellungen') main.innerHTML = renderEinstellungen();
+}
+
+async function refresh(){
+  await loadData();
+  render();
+}
+
+// ---------- Übersicht ----------
+function renderUebersicht(){
+  const sorted = [...spieltage].sort((a,b)=> (a.datum||'').localeCompare(b.datum||''));
+  const cards = sorted.map(sp=>{
+    const voll = spieltagVollstaendig(sp);
+    const gesamt = gesamtPlaetze(sp);
+    const besetzt = besetztePlaetze(sp);
+    const pct = gesamt ? Math.round(besetzt/gesamt*100) : 100;
+    return `
+      <div class="card clickable ${voll?'full':''}" onclick="setView({name:'detail', spieltagId:'${sp.id}'})">
+        <h3>${fmtDatum(sp.datum)}${sp.uhrzeit? ' · '+sp.uhrzeit+' Uhr':''}</h3>
+        <div class="meta">${sp.gegner? 'gegen '+escapeHtml(sp.gegner) : ''}${sp.ort? ' · '+escapeHtml(sp.ort) : ''}</div>
+        <div class="status">${besetzt}/${gesamt} Dienste besetzt</div>
+        <div class="bar-bg"><div class="bar-fill ${voll?'full':''}" style="width:${pct}%;"></div></div>
+      </div>
+    `;
+  }).join('');
+  return `
+    <div class="toolbar">
+      <h2>Kommende Spieltage</h2>
+      <button class="primary" onclick="setView({name:'neu'})">+ Neuer Spieltag</button>
+    </div>
+    ${sorted.length? cards : '<div class="empty">Noch keine Spieltage angelegt. Leg den ersten Spieltag an.</div>'}
+  `;
+}
+
+// ---------- Neuer Spieltag ----------
+function renderNeuerSpieltag(){
+  const rows = konfig.diensteKatalog.map((d,i)=>`
+    <div class="katalog-pick">
+      <input type="checkbox" id="pick-${i}">
+      <div class="lbl">${escapeHtml(d.name)} <span style="color:#8a7550;font-size:.8rem;">(${d.punkte} Pkt.)</span></div>
+      <label style="margin:0;">Anzahl
+        <input type="number" id="anz-${i}" min="1" value="1">
+      </label>
+    </div>
+  `).join('');
+  return `
+    <button class="backlink" onclick="setView({name:'uebersicht'})">← Zurück</button>
+    <h2 style="margin-bottom:16px;">Neuen Spieltag anlegen</h2>
+    <div class="field"><label>Datum</label><input type="date" id="f-datum"></div>
+    <div class="field"><label>Uhrzeit</label><input type="time" id="f-uhrzeit"></div>
+    <div class="field"><label>Ort</label><input type="text" id="f-ort" placeholder="z.B. Sporthalle 3"></div>
+    <div class="field"><label>Gegner / Beschreibung</label><input type="text" id="f-gegner" placeholder="z.B. SG Musterstadt"></div>
+    <div class="field">
+      <label>Benötigte Dienste</label>
+      ${rows || '<div class="hint">Noch keine Dienste im Katalog. Leg sie zuerst unter Einstellungen an.</div>'}
+    </div>
+    <button class="primary" onclick="spieltagSpeichern()">Spieltag speichern</button>
+  `;
+}
+
+async function spieltagSpeichern(){
+  const datum = document.getElementById('f-datum').value;
+  if(!datum){ alert('Bitte ein Datum angeben.'); return; }
+  const uhrzeit = document.getElementById('f-uhrzeit').value;
+  const ort = document.getElementById('f-ort').value.trim();
+  const gegner = document.getElementById('f-gegner').value.trim();
+  const dienste = [];
+  konfig.diensteKatalog.forEach((d,i)=>{
+    const box = document.getElementById(`pick-${i}`);
+    if(box && box.checked){
+      const anz = parseInt(document.getElementById(`anz-${i}`).value) || 1;
+      dienste.push({ id: uid(), name: d.name, punkte: d.punkte, benoetigt: anz, eingetragen: [] });
+    }
+  });
+  const neu = { id: uid(), datum, uhrzeit, ort, gegner, dienste };
+  spieltage.push(neu);
+  await saveSpieltage();
+  setView({name:'detail', spieltagId: neu.id});
+}
+
+// ---------- Bearbeiten ----------
+function renderBearbeiten(id){
+  const sp = spieltage.find(s=>s.id===id);
+  if(!sp) return '<div class="empty">Spieltag nicht gefunden.</div>';
+  const rows = konfig.diensteKatalog.map((d,i)=>{
+    const bestehend = sp.dienste.find(x=>x.name.toLowerCase()===d.name.toLowerCase());
+    return `
+    <div class="katalog-pick">
+      <input type="checkbox" id="pick-${i}" ${bestehend?'checked':''}>
+      <div class="lbl">${escapeHtml(d.name)} <span style="color:#8a7550;font-size:.8rem;">(${d.punkte} Pkt.)</span>
+        ${bestehend && bestehend.eingetragen.length? `<div class="hint">${bestehend.eingetragen.length} bereits eingetragen – bei Entfernen gehen diese Einträge verloren.</div>` : ''}
+      </div>
+      <label style="margin:0;">Anzahl
+        <input type="number" id="anz-${i}" min="1" value="${bestehend? bestehend.benoetigt : 1}">
+      </label>
+    </div>
+  `;}).join('');
+  return `
+    <button class="backlink" onclick="setView({name:'detail', spieltagId:'${sp.id}'})">← Zurück zum Spieltag</button>
+    <h2 style="margin-bottom:16px;">Spieltag bearbeiten</h2>
+    <div class="field"><label>Datum</label><input type="date" id="f-datum" value="${sp.datum||''}"></div>
+    <div class="field"><label>Uhrzeit</label><input type="time" id="f-uhrzeit" value="${sp.uhrzeit||''}"></div>
+    <div class="field"><label>Ort</label><input type="text" id="f-ort" value="${escapeHtml(sp.ort||'')}" placeholder="z.B. Sporthalle 3"></div>
+    <div class="field"><label>Gegner / Beschreibung</label><input type="text" id="f-gegner" value="${escapeHtml(sp.gegner||'')}" placeholder="z.B. SG Musterstadt"></div>
+    <div class="field">
+      <label>Benötigte Dienste</label>
+      ${rows || '<div class="hint">Noch keine Dienste im Katalog. Leg sie zuerst unter Einstellungen an.</div>'}
+    </div>
+    <button class="primary" onclick="spieltagAktualisieren('${sp.id}')">Änderungen speichern</button>
+  `;
+}
+
+async function spieltagAktualisieren(id){
+  const sp = spieltage.find(s=>s.id===id);
+  if(!sp) return;
+  const datum = document.getElementById('f-datum').value;
+  if(!datum){ alert('Bitte ein Datum angeben.'); return; }
+
+  const entfernteMitEintraegen = [];
+  konfig.diensteKatalog.forEach((d,i)=>{
+    const box = document.getElementById(`pick-${i}`);
+    const bestehend = sp.dienste.find(x=>x.name.toLowerCase()===d.name.toLowerCase());
+    if(bestehend && (!box || !box.checked) && bestehend.eingetragen.length){
+      entfernteMitEintraegen.push(d.name);
+    }
+  });
+  if(entfernteMitEintraegen.length){
+    const ok = confirm(`Beim Speichern gehen die Einträge für folgende Dienste verloren: ${entfernteMitEintraegen.join(', ')}. Fortfahren?`);
+    if(!ok) return;
+  }
+
+  sp.datum = datum;
+  sp.uhrzeit = document.getElementById('f-uhrzeit').value;
+  sp.ort = document.getElementById('f-ort').value.trim();
+  sp.gegner = document.getElementById('f-gegner').value.trim();
+
+  const neueDienste = [];
+  konfig.diensteKatalog.forEach((d,i)=>{
+    const box = document.getElementById(`pick-${i}`);
+    if(box && box.checked){
+      const anz = parseInt(document.getElementById(`anz-${i}`).value) || 1;
+      const bestehend = sp.dienste.find(x=>x.name.toLowerCase()===d.name.toLowerCase());
+      if(bestehend){
+        bestehend.punkte = d.punkte;
+        bestehend.benoetigt = anz;
+        neueDienste.push(bestehend);
+      }else{
+        neueDienste.push({ id: uid(), name: d.name, punkte: d.punkte, benoetigt: anz, eingetragen: [] });
+      }
+    }
+  });
+  sp.dienste = neueDienste;
+
+  await saveSpieltage();
+  setView({name:'detail', spieltagId: sp.id});
+}
+
+async function spieltagLoeschen(id){
+  const sp = spieltage.find(s=>s.id===id);
+  if(!sp) return;
+  const ok = confirm(`Spieltag am ${fmtDatum(sp.datum)} wirklich löschen? Das kann nicht rückgängig gemacht werden.`);
+  if(!ok) return;
+  spieltage = spieltage.filter(s=>s.id!==id);
+  await saveSpieltage();
+  setView({name:'uebersicht'});
+}
+
+// ---------- Detail ----------
+function renderDetail(id){
+  const sp = spieltage.find(s=>s.id===id);
+  if(!sp) return '<div class="empty">Spieltag nicht gefunden.</div>';
+  const blocks = sp.dienste.map(d=>{
+    const offen = d.benoetigt - d.eingetragen.length;
+    const chips = d.eingetragen.map((e,idx)=>`
+      <div class="chip ${e.zugelost?'lucky':''}">${e.zugelost?'🎲 ':''}${escapeHtml(e.name)}
+        <span class="x" onclick="eintragEntfernen('${sp.id}','${d.id}',${idx})">✕</span>
+      </div>
+    `).join('');
+    return `
+      <div class="dienst-block">
+        <div class="dienst-head">
+          <div class="name">${escapeHtml(d.name)}</div>
+          <div class="punkte">${d.punkte} Punkte · ${d.eingetragen.length}/${d.benoetigt} besetzt</div>
+        </div>
+        <div class="chips">${chips || '<span class="hint">Noch niemand eingetragen.</span>'}</div>
+        ${offen>0? `
+          <div class="entry-row">
+            <input type="text" id="name-${d.id}" placeholder="Dein Name">
+            <button class="primary" onclick="eintragen('${sp.id}','${d.id}')">Eintragen</button>
+            <button class="ghost" onclick="zulosen('${sp.id}','${d.id}')">🎲 Zulosen (${offen})</button>
+          </div>
+        `: '<div class="hint">Alle Plätze besetzt.</div>'}
+      </div>
+    `;
+  }).join('');
+  return `
+    <button class="backlink" onclick="setView({name:'uebersicht'})">← Zurück zur Übersicht</button>
+    <div class="toolbar" style="align-items:flex-start;">
+      <div>
+        <h2>${fmtDatum(sp.datum)}${sp.uhrzeit? ' · '+sp.uhrzeit+' Uhr':''}</h2>
+        <div class="meta">${sp.gegner? 'gegen '+escapeHtml(sp.gegner) : ''}${sp.ort? ' · '+escapeHtml(sp.ort) : ''}</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="ghost" onclick="setView({name:'bearbeiten', spieltagId:'${sp.id}'})">✎ Bearbeiten</button>
+        <button class="ghost" onclick="spieltagLoeschen('${sp.id}')">🗑 Löschen</button>
+      </div>
+    </div>
+    ${blocks || '<div class="empty">Für diesen Spieltag sind keine Dienste hinterlegt.</div>'}
+  `;
+}
+
+async function eintragen(spId, dienstId){
+  const input = document.getElementById(`name-${dienstId}`);
+  const name = input.value.trim();
+  if(!name) return;
+  const sp = spieltage.find(s=>s.id===spId);
+  const d = sp.dienste.find(x=>x.id===dienstId);
+  if(d.eingetragen.length >= d.benoetigt){ alert('Dieser Dienst ist bereits voll besetzt.'); return; }
+  if(d.eingetragen.some(e=>e.name.toLowerCase()===name.toLowerCase())){ alert('Du bist hier schon eingetragen.'); return; }
+  d.eingetragen.push({ name, zugelost:false });
+  if(!konfig.kader.includes(name)){ konfig.kader.push(name); await saveKonfig(); }
+  await saveSpieltage();
+  render();
+}
+
+async function eintragEntfernen(spId, dienstId, idx){
+  const sp = spieltage.find(s=>s.id===spId);
+  const d = sp.dienste.find(x=>x.id===dienstId);
+  d.eingetragen.splice(idx,1);
+  await saveSpieltage();
+  render();
+}
+
+async function zulosen(spId, dienstId){
+  const sp = spieltage.find(s=>s.id===spId);
+  const d = sp.dienste.find(x=>x.id===dienstId);
+  const offen = d.benoetigt - d.eingetragen.length;
+  if(offen<=0) return;
+  const belegteNamen = d.eingetragen.map(e=>e.name);
+  let pool = konfig.kader.filter(n=>!belegteNamen.includes(n));
+  if(pool.length===0){ alert('Kein Kader hinterlegt bzw. alle bereits eingetragen. Kader unter Einstellungen pflegen.'); return; }
+  for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
+  const gezogen = pool.slice(0, offen);
+  gezogen.forEach(name=> d.eingetragen.push({ name, zugelost:true }));
+  await saveSpieltage();
+  render();
+  if(gezogen.length < offen){
+    alert(`Nur ${gezogen.length} von ${offen} Plätzen konnten zugelost werden – der Kader ist zu klein.`);
+  }
+}
+
+// ---------- Punkte ----------
+function renderPunkte(){
+  const map = punkteProSpieler();
+  const namen = Object.keys(map).sort((a,b)=> map[b]-map[a]);
+  const rows = namen.map(n=>{
+    const p = map[n];
+    const pct = Math.min(100, Math.round(p/konfig.saisonziel*100));
+    const erreicht = p >= konfig.saisonziel;
+    return `
+      <tr>
+        <td>${escapeHtml(n)}</td>
+        <td class="points-num">${p}</td>
+        <td class="progress-cell">
+          <div class="bar-bg"><div class="bar-fill ${erreicht?'full':''}" style="width:${pct}%;"></div></div>
+        </td>
+        <td>${erreicht? '✓ erreicht' : (konfig.saisonziel-p)+' fehlen'}</td>
+      </tr>
+    `;
+  }).join('');
+  return `
+    <h2 style="margin-bottom:16px;">Punkteübersicht</h2>
+    ${namen.length? `
+    <table>
+      <thead><tr><th>Name</th><th>Punkte</th><th>Fortschritt</th><th>Status</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>` : '<div class="empty">Noch keine Punkte vergeben. Sobald sich jemand einträgt, erscheint er hier.</div>'}
+  `;
+}
+
+// ---------- Einstellungen ----------
+function renderEinstellungen(){
+  const katalogRows = konfig.diensteKatalog.map((d,i)=>`
+    <div class="settings-row">
+      <input type="text" value="${escapeHtml(d.name)}" onchange="katalogNameAendern(${i}, this.value)">
+      <input type="number" value="${d.punkte}" onchange="katalogPunkteAendern(${i}, this.value)"> Pkt.
+      <button class="ghost" onclick="katalogEntfernen(${i})">✕</button>
+    </div>
+  `).join('');
+  const kaderChips = konfig.kader.map((n,i)=>`
+    <div class="chip">${escapeHtml(n)} <span class="x" onclick="kaderEntfernen(${i})">✕</span></div>
+  `).join('');
+  return `
+    <h2 style="margin-bottom:20px;">Einstellungen</h2>
+
+    <div class="settings-section">
+      <h3>Dienste-Katalog</h3>
+      ${katalogRows || '<div class="hint">Noch keine Dienste angelegt.</div>'}
+      <div class="settings-row" style="margin-top:10px;">
+        <input type="text" id="neu-dienst-name" placeholder="Neuer Dienst, z.B. Fahrdienst">
+        <input type="number" id="neu-dienst-punkte" placeholder="Punkte" value="1">
+        <button class="primary" onclick="katalogHinzufuegen()">+</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>Kader (für Zulosung)</h3>
+      <div class="chips">${kaderChips || '<span class="hint">Noch niemand im Kader.</span>'}</div>
+      <div class="settings-row">
+        <input type="text" id="neu-spieler-name" placeholder="Name hinzufügen">
+        <button class="primary" onclick="kaderHinzufuegen()">+</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>Saisonziel</h3>
+      <div class="field" style="max-width:200px;">
+        <label>Punkte pro Spieler bis Saisonende</label>
+        <input type="number" value="${konfig.saisonziel}" onchange="saisonzielAendern(this.value)">
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>Datensicherung</h3>
+      <div class="hint" style="margin-bottom:10px;">Lade dir hin und wieder eine Sicherung herunter – falls die Synchronisation mal hakt, kannst du sie hier wieder einspielen.</div>
+      <div class="settings-row">
+        <button class="ghost" onclick="datenSichern()">⬇ Sicherung herunterladen</button>
+        <label class="ghost" style="cursor:pointer;display:inline-flex;align-items:center;">
+          ⬆ Sicherung einspielen
+          <input type="file" accept="application/json" style="display:none;" onchange="datenWiederherstellen(this)">
+        </label>
+      </div>
+    </div>
+  `;
+}
+
+function datenSichern(){
+  const backup = { konfig, spieltage, exportiertAm: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `spielplan-sicherung-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+async function datenWiederherstellen(input){
+  const file = input.files[0];
+  if(!file) return;
+  try{
+    const text = await file.text();
+    const backup = JSON.parse(text);
+    if(!backup.konfig || !backup.spieltage){ alert('Diese Datei sieht nicht wie eine gültige Sicherung aus.'); return; }
+    const ok = confirm('Aktuellen Stand mit dieser Sicherung überschreiben? Das kann nicht rückgängig gemacht werden.');
+    if(!ok) return;
+    konfig = backup.konfig;
+    spieltage = backup.spieltage;
+    await saveKonfig();
+    await saveSpieltage();
+    render();
+  }catch(e){
+    alert('Die Datei konnte nicht gelesen werden.');
+  }
+  input.value = '';
+}
+
+async function katalogNameAendern(i,val){ konfig.diensteKatalog[i].name = val.trim(); await saveKonfig(); }
+async function katalogPunkteAendern(i,val){ konfig.diensteKatalog[i].punkte = parseInt(val)||0; await saveKonfig(); }
+async function katalogEntfernen(i){ konfig.diensteKatalog.splice(i,1); await saveKonfig(); render(); }
+async function katalogHinzufuegen(){
+  const name = document.getElementById('neu-dienst-name').value.trim();
+  const punkte = parseInt(document.getElementById('neu-dienst-punkte').value)||1;
+  if(!name) return;
+  konfig.diensteKatalog.push({name,punkte});
+  await saveKonfig();
+  render();
+}
+async function kaderHinzufuegen(){
+  const name = document.getElementById('neu-spieler-name').value.trim();
+  if(!name || konfig.kader.includes(name)) return;
+  konfig.kader.push(name);
+  await saveKonfig();
+  render();
+}
+async function kaderEntfernen(i){ konfig.kader.splice(i,1); await saveKonfig(); render(); }
+async function saisonzielAendern(val){ konfig.saisonziel = parseInt(val)||1; await saveKonfig(); render(); }
+
+function escapeHtml(s){
+  return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+(async function init(){
+  document.getElementById('app').innerHTML = '<div class="empty">Lädt…</div>';
+  const ok = await loadData();
+  if(ok) await ensureSeedData();
+  render();
+  setInterval(async ()=>{
+    if(view.name==='uebersicht' || view.name==='punkte'){
+      await loadData();
+      render();
+    }
+  }, 30000);
+})();
+</script>
+</body>
+</html>
