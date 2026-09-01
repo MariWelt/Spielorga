@@ -403,10 +403,43 @@ async function loadData(){
 
 let speicherFehler = false;
 
+async function holeFrischeRemoteDaten(){
+  const r = await withTimeout(githubGet(), 8000);
+  return r.exists ? r.data : { konfig: defaultKonfig(), spieltage: [] };
+}
+
+// Führt lokale Änderungen mit dem aktuellsten Remote-Stand zusammen, statt
+// blind zu überschreiben: Spieltage/Dienste/Kader, die zwischenzeitlich von
+// woanders dazugekommen sind, bleiben erhalten. Für bekannte IDs gewinnt
+// die lokale (gerade bearbeitete) Version.
+function datenZusammenfuehren(remote){
+  const localIds = new Set(spieltage.map(s=>s.id));
+  const fremdeSpieltage = (remote.spieltage||[]).filter(s=>!localIds.has(s.id));
+  const zusammengefuehrteSpieltage = [...spieltage, ...fremdeSpieltage];
+
+  const remoteKonfig = remote.konfig || defaultKonfig();
+  const kaderVereint = Array.from(new Set([...(remoteKonfig.kader||[]), ...konfig.kader]));
+  const katalogVereint = [...konfig.diensteKatalog];
+  (remoteKonfig.diensteKatalog||[]).forEach(rd=>{
+    if(!katalogVereint.some(d=>d.name.toLowerCase()===rd.name.toLowerCase())){
+      katalogVereint.push(rd);
+    }
+  });
+
+  return {
+    konfig: { diensteKatalog: katalogVereint, kader: kaderVereint, saisonziel: konfig.saisonziel },
+    spieltage: zusammengefuehrteSpieltage
+  };
+}
+
 async function speichereAlles(){
   for(let i=0;i<3;i++){
     try{
-      await withTimeout(githubSave({ konfig, spieltage }), 10000);
+      const remote = await holeFrischeRemoteDaten();
+      const merged = datenZusammenfuehren(remote);
+      konfig = merged.konfig;
+      spieltage = merged.spieltage;
+      await withTimeout(githubSave(merged), 10000);
       speicherFehler = false;
       return true;
     }catch(e){
@@ -647,8 +680,27 @@ async function spieltagLoeschen(id){
   const ok = confirm(`Spieltag am ${fmtDatum(sp.datum)} wirklich löschen? Das kann nicht rückgängig gemacht werden.`);
   if(!ok) return;
   spieltage = spieltage.filter(s=>s.id!==id);
-  await saveSpieltage();
+  await entferneSpieltagRemote(id);
   setView({name:'uebersicht'});
+}
+
+async function entferneSpieltagRemote(geloeschteId){
+  for(let i=0;i<3;i++){
+    try{
+      const remote = await holeFrischeRemoteDaten();
+      const merged = datenZusammenfuehren(remote);
+      merged.spieltage = merged.spieltage.filter(s=>s.id!==geloeschteId);
+      konfig = merged.konfig;
+      spieltage = merged.spieltage;
+      await withTimeout(githubSave(merged), 10000);
+      speicherFehler = false;
+      return true;
+    }catch(e){
+      if(i<2) await wait(700);
+    }
+  }
+  speicherFehler = true;
+  return false;
 }
 
 // ---------- Detail ----------
@@ -844,8 +896,7 @@ async function datenWiederherstellen(input){
     if(!ok) return;
     konfig = backup.konfig;
     spieltage = backup.spieltage;
-    await saveKonfig();
-    await saveSpieltage();
+    await hartUeberschreiben();
     render();
   }catch(e){
     alert('Die Datei konnte nicht gelesen werden.');
@@ -855,7 +906,12 @@ async function datenWiederherstellen(input){
 
 async function katalogNameAendern(i,val){ konfig.diensteKatalog[i].name = val.trim(); await saveKonfig(); }
 async function katalogPunkteAendern(i,val){ konfig.diensteKatalog[i].punkte = parseInt(val)||0; await saveKonfig(); }
-async function katalogEntfernen(i){ konfig.diensteKatalog.splice(i,1); await saveKonfig(); render(); }
+async function katalogEntfernen(i){
+  const name = konfig.diensteKatalog[i].name;
+  konfig.diensteKatalog.splice(i,1);
+  await entferneAusKonfigRemote(d=> d.name.toLowerCase()!==name.toLowerCase(), null);
+  render();
+}
 async function katalogHinzufuegen(){
   const name = document.getElementById('neu-dienst-name').value.trim();
   const punkte = parseInt(document.getElementById('neu-dienst-punkte').value)||1;
@@ -871,8 +927,53 @@ async function kaderHinzufuegen(){
   await saveKonfig();
   render();
 }
-async function kaderEntfernen(i){ konfig.kader.splice(i,1); await saveKonfig(); render(); }
+async function kaderEntfernen(i){
+  const name = konfig.kader[i];
+  konfig.kader.splice(i,1);
+  await entferneAusKonfigRemote(null, n=> n!==name);
+  render();
+}
 async function saisonzielAendern(val){ konfig.saisonziel = parseInt(val)||1; await saveKonfig(); render(); }
+
+// Für Löschungen im Katalog/Kader: wie beim Spieltag-Löschen erst den
+// aktuellsten Remote-Stand holen, zusammenführen, und danach den lokal
+// entfernten Eintrag erneut herausfiltern, damit er nicht aus der Cloud
+// wieder auftaucht.
+async function entferneAusKonfigRemote(katalogFilter, kaderFilter){
+  for(let i=0;i<3;i++){
+    try{
+      const remote = await holeFrischeRemoteDaten();
+      const merged = datenZusammenfuehren(remote);
+      if(katalogFilter) merged.konfig.diensteKatalog = merged.konfig.diensteKatalog.filter(katalogFilter);
+      if(kaderFilter) merged.konfig.kader = merged.konfig.kader.filter(kaderFilter);
+      konfig = merged.konfig;
+      spieltage = merged.spieltage;
+      await withTimeout(githubSave(merged), 10000);
+      speicherFehler = false;
+      return true;
+    }catch(e){
+      if(i<2) await wait(700);
+    }
+  }
+  speicherFehler = true;
+  return false;
+}
+
+// Sicherung einspielen soll den Stand HART überschreiben (kein Merge),
+// das ist hier ausdrücklich gewollt.
+async function hartUeberschreiben(){
+  for(let i=0;i<3;i++){
+    try{
+      await withTimeout(githubSave({ konfig, spieltage }), 10000);
+      speicherFehler = false;
+      return true;
+    }catch(e){
+      if(i<2) await wait(700);
+    }
+  }
+  speicherFehler = true;
+  return false;
+}
 
 function escapeHtml(s){
   return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
