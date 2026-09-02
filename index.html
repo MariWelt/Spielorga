@@ -98,7 +98,7 @@ function withTimeout(promise, ms){
   ]);
 }
 
-const BIN_URL = 'https://json.extendsclass.com/bin/0dd37a304b8c';
+const STORAGE_KEY = 'spielplan-spieltage';
 
 let spieltage = [];
 let dataEverLoaded = false;
@@ -106,49 +106,29 @@ let ladeFehler = '';
 let speicherFehler = '';
 
 async function ladeSpieltage(){
-  let letzterFehlerObj = null;
-  for(let i=0;i<3;i++){
-    try{
-      const res = await withTimeout(fetch(BIN_URL), 8000);
-      if(!res.ok){ throw new Error('GET '+res.status); }
-      const data = await res.json();
-      spieltage = Array.isArray(data.spieltage) ? data.spieltage : [];
-      ladeFehler = '';
-      dataEverLoaded = true;
-      return true;
-    }catch(e){
-      letzterFehlerObj = e;
-      if(i<2) await wait(600);
-    }
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    spieltage = raw ? JSON.parse(raw) : [];
+    ladeFehler = '';
+    dataEverLoaded = true;
+    return true;
+  }catch(e){
+    ladeFehler = 'Lokaler Speicher nicht verfügbar (' + (e.message||e) + ').';
+    if(!dataEverLoaded) spieltage = [];
+    dataEverLoaded = true;
+    return false;
   }
-  if(!dataEverLoaded) spieltage = [];
-  ladeFehler = 'Speicher gerade nicht erreichbar' + (letzterFehlerObj ? ' ('+ (letzterFehlerObj.message||letzterFehlerObj) +')' : '') + '. Dein bisheriger Stand wurde nicht verändert.';
-  dataEverLoaded = true;
-  return false;
 }
 
 async function speichereSpieltage(){
-  let letzterFehlerObj = null;
-  for(let i=0;i<3;i++){
-    try{
-      const res = await withTimeout(fetch(BIN_URL, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ spieltage })
-      }), 8000);
-      if(!res.ok){
-        const t = await res.text().catch(()=>'');
-        throw new Error('PUT '+res.status+' '+t.slice(0,200));
-      }
-      speicherFehler = '';
-      return true;
-    }catch(e){
-      letzterFehlerObj = e;
-      if(i<2) await wait(600);
-    }
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(spieltage));
+    speicherFehler = '';
+    return true;
+  }catch(e){
+    speicherFehler = 'Konnte nicht lokal gespeichert werden (' + (e.message||e) + '). Bitte Sicherung herunterladen, damit nichts verloren geht.';
+    return false;
   }
-  speicherFehler = 'Konnte nicht gespeichert werden' + (letzterFehlerObj ? ' ('+ (letzterFehlerObj.message||letzterFehlerObj) +')' : '') + '. Bitte nochmal versuchen, notfalls Sicherung herunterladen.';
-  return false;
 }
 
 function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
@@ -425,7 +405,7 @@ function renderPunkte(){
 function renderSicherung(){
   return `
     <h2 style="margin-bottom:16px;">Datensicherung</h2>
-    <div class="hint" style="margin-bottom:14px;">Der Speicher hier im Chat ist praktisch, aber nicht zu 100% zuverlässig. Lade dir hin und wieder eine Sicherung herunter – falls mal was verschwindet, kannst du sie wieder einspielen.</div>
+    <div class="hint" style="margin-bottom:14px;">Die Seite speichert jetzt nur noch lokal in diesem Browser – zuverlässig, aber ohne automatischen Abgleich zwischen mehreren Geräten. So bleibt ihr trotzdem synchron: Eine Person pflegt die Seite, lädt hin und wieder eine Sicherung herunter und schickt sie den anderen (z.B. im Team-Chat) – die spielen sie unten ein, um den aktuellen Stand zu sehen.</div>
     <div class="settings-row">
       <button class="ghost" onclick="datenSichern()">⬇ Sicherung herunterladen</button>
       <label class="ghost" style="cursor:pointer;display:inline-flex;align-items:center;">
@@ -475,12 +455,6 @@ function escapeHtml(s){
   document.getElementById('app').innerHTML = '<div class="empty">Lädt…</div>';
   await ladeSpieltage();
   render();
-  setInterval(async ()=>{
-    if(view.name==='uebersicht' || view.name==='punkte'){
-      await ladeSpieltage();
-      render();
-    }
-  }, 45000);
 })();
 </script>
 </body>
