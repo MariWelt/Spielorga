@@ -374,9 +374,11 @@ async function githubSave(data){
 
 let dataEverLoaded = false;
 let letzterFehler = false;
+let letzterFehlerText = '';
 
 async function loadData(){
   let erfolg = false;
+  let letzterFehlerObj = null;
   for(let i=0;i<4 && !erfolg;i++){
     try{
       const r = await withTimeout(githubGet(), 8000);
@@ -389,6 +391,7 @@ async function loadData(){
       }
       erfolg = true;
     }catch(e){
+      letzterFehlerObj = e;
       if(i<3) await wait(700);
     }
   }
@@ -397,11 +400,13 @@ async function loadData(){
     spieltage = [];
   }
   letzterFehler = !erfolg;
+  letzterFehlerText = erfolg ? '' : (letzterFehlerObj ? String(letzterFehlerObj.message || letzterFehlerObj) : 'Unbekannter Fehler');
   dataEverLoaded = true;
   return erfolg;
 }
 
 let speicherFehler = false;
+let speicherFehlerText = '';
 
 async function holeFrischeRemoteDaten(){
   const r = await withTimeout(githubGet(), 8000);
@@ -433,6 +438,7 @@ function datenZusammenfuehren(remote){
 }
 
 async function speichereAlles(){
+  let letzterFehlerObj = null;
   for(let i=0;i<3;i++){
     try{
       const remote = await holeFrischeRemoteDaten();
@@ -441,12 +447,15 @@ async function speichereAlles(){
       spieltage = merged.spieltage;
       await withTimeout(githubSave(merged), 10000);
       speicherFehler = false;
+      speicherFehlerText = '';
       return true;
     }catch(e){
+      letzterFehlerObj = e;
       if(i<2) await wait(700);
     }
   }
   speicherFehler = true;
+  speicherFehlerText = letzterFehlerObj ? String(letzterFehlerObj.message || letzterFehlerObj) : 'Unbekannter Fehler';
   return false;
 }
 
@@ -506,8 +515,8 @@ function render(){
         </nav>
         <button class="ghost" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.35);" onclick="refresh()">↻ Aktualisieren</button>
       </div>
-      ${letzterFehler? '<div style="margin-top:8px;font-size:.8rem;color:#FBDCA0;">⚠ Aktualisieren hat gerade nicht geklappt – dein bisheriger Stand wurde nicht verändert. Einfach nochmal versuchen.</div>' : ''}
-      ${speicherFehler? '<div style="margin-top:8px;font-size:.8rem;color:#FBDCA0;">⚠ Speichern hat gerade nicht geklappt. Deine letzte Änderung ist nur lokal auf deinem Gerät – bitte gleich nochmal versuchen oder unter Einstellungen eine Sicherung herunterladen.</div>' : ''}
+      ${letzterFehler? `<div style="margin-top:8px;font-size:.8rem;color:#FBDCA0;">⚠ Laden fehlgeschlagen: ${escapeHtml(letzterFehlerText)}</div>` : ''}
+      ${speicherFehler? `<div style="margin-top:8px;font-size:.8rem;color:#FBDCA0;">⚠ Speichern fehlgeschlagen: ${escapeHtml(speicherFehlerText)}</div>` : ''}
     </header>
     <main id="main"></main>
   `;
