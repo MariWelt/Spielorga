@@ -19,210 +19,46 @@
     --line:#E4DCC9;
   }
   *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--sand);
-    color:var(--ink);
-    font-family:'Work Sans',sans-serif;
-    line-height:1.45;
-  }
-  h1,h2,h3,.display{
-    font-family:'Oswald',sans-serif;
-    font-weight:600;
-    letter-spacing:.01em;
-    margin:0;
-  }
-  header.top{
-    background:var(--court);
-    color:#fff;
-    padding:18px 20px;
-  }
-  header.top .row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    max-width:760px;
-    margin:0 auto;
-    flex-wrap:wrap;
-    gap:10px;
-  }
-  header.top h1{
-    font-size:1.5rem;
-    text-transform:uppercase;
-  }
-  nav.tabs{
-    display:flex;
-    gap:4px;
-  }
-  nav.tabs button{
-    background:transparent;
-    border:1px solid rgba(255,255,255,.35);
-    color:#fff;
-    font-family:'Oswald',sans-serif;
-    font-size:.85rem;
-    text-transform:uppercase;
-    letter-spacing:.03em;
-    padding:7px 12px;
-    border-radius:3px;
-    cursor:pointer;
-  }
-  nav.tabs button.active{
-    background:#fff;
-    color:var(--court-dark);
-    border-color:#fff;
-  }
-  main{
-    max-width:760px;
-    margin:0 auto;
-    padding:22px 18px 60px;
-  }
-  .toolbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:16px;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-  button.primary{
-    background:var(--court);
-    color:#fff;
-    border:none;
-    padding:10px 16px;
-    font-family:'Oswald',sans-serif;
-    font-size:.9rem;
-    text-transform:uppercase;
-    letter-spacing:.02em;
-    border-radius:3px;
-    cursor:pointer;
-  }
+  body{margin:0;background:var(--sand);color:var(--ink);font-family:'Work Sans',sans-serif;line-height:1.45;}
+  h1,h2,h3{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.01em;margin:0;}
+  header.top{background:var(--court);color:#fff;padding:18px 20px;}
+  header.top .row{display:flex;justify-content:space-between;align-items:center;max-width:760px;margin:0 auto;flex-wrap:wrap;gap:10px;}
+  header.top h1{font-size:1.5rem;text-transform:uppercase;}
+  nav.tabs{display:flex;gap:4px;}
+  nav.tabs button{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;font-family:'Oswald',sans-serif;font-size:.85rem;text-transform:uppercase;letter-spacing:.03em;padding:7px 12px;border-radius:3px;cursor:pointer;}
+  nav.tabs button.active{background:#fff;color:var(--court-dark);border-color:#fff;}
+  main{max-width:760px;margin:0 auto;padding:22px 18px 60px;}
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:10px;flex-wrap:wrap;}
+  button.primary{background:var(--court);color:#fff;border:none;padding:10px 16px;font-family:'Oswald',sans-serif;font-size:.9rem;text-transform:uppercase;letter-spacing:.02em;border-radius:3px;cursor:pointer;}
   button.primary:hover{background:var(--court-dark);}
-  button.ghost{
-    background:transparent;
-    border:1px solid var(--line);
-    color:var(--ink);
-    padding:8px 12px;
-    border-radius:3px;
-    cursor:pointer;
-    font-family:'Work Sans',sans-serif;
-    font-size:.85rem;
-  }
+  button.ghost{background:transparent;border:1px solid var(--line);color:var(--ink);padding:8px 12px;border-radius:3px;cursor:pointer;font-family:'Work Sans',sans-serif;font-size:.85rem;}
   button.ghost:hover{border-color:var(--court);}
-  .card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-left:5px solid var(--gold);
-    border-radius:4px;
-    padding:16px 18px;
-    margin-bottom:14px;
-  }
+  .card{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:4px;padding:16px 18px;margin-bottom:14px;}
   .card.full{border-left-color:var(--green);}
   .card.clickable{cursor:pointer;}
   .card.clickable:hover{border-left-color:var(--court);}
-  .card .meta{
-    font-size:.85rem;
-    color:#5b6a72;
-    margin-top:3px;
-  }
-  .card .status{
-    font-family:'Oswald',sans-serif;
-    font-size:.8rem;
-    text-transform:uppercase;
-    margin-top:8px;
-    color:var(--court-dark);
-  }
-  .bar-bg{
-    background:#EFE9D8;
-    border-radius:3px;
-    height:6px;
-    margin-top:6px;
-    overflow:hidden;
-  }
-  .bar-fill{
-    height:100%;
-    background:var(--gold);
-  }
+  .card .meta{font-size:.85rem;color:#5b6a72;margin-top:3px;}
+  .card .status{font-family:'Oswald',sans-serif;font-size:.8rem;text-transform:uppercase;margin-top:8px;color:var(--court-dark);}
+  .bar-bg{background:#EFE9D8;border-radius:3px;height:6px;margin-top:6px;overflow:hidden;}
+  .bar-fill{height:100%;background:var(--gold);}
   .bar-fill.full{background:var(--green);}
-  .empty{
-    text-align:center;
-    padding:40px 20px;
-    color:#7a8790;
-    font-size:.95rem;
-  }
-  .dienst-block{
-    border:1px solid var(--line);
-    border-radius:4px;
-    padding:14px 16px;
-    margin-bottom:12px;
-    background:var(--card);
-  }
-  .dienst-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    flex-wrap:wrap;
-    gap:6px;
-  }
+  .empty{text-align:center;padding:40px 20px;color:#7a8790;font-size:.95rem;}
+  .dienst-block{border:1px solid var(--line);border-radius:4px;padding:14px 16px;margin-bottom:12px;background:var(--card);}
+  .dienst-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;}
   .dienst-head .name{font-family:'Oswald',sans-serif;font-size:1.05rem;}
   .dienst-head .punkte{font-size:.82rem;color:var(--court-dark);font-weight:600;}
-  .chips{
-    display:flex;
-    flex-wrap:wrap;
-    gap:6px;
-    margin:10px 0;
-  }
-  .chip{
-    background:var(--sand);
-    border:1px solid var(--line);
-    border-radius:20px;
-    padding:4px 10px 4px 12px;
-    font-size:.85rem;
-    display:flex;
-    align-items:center;
-    gap:6px;
-  }
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;}
+  .chip{background:var(--sand);border:1px solid var(--line);border-radius:20px;padding:4px 10px 4px 12px;font-size:.85rem;display:flex;align-items:center;gap:6px;}
   .chip .x{cursor:pointer;color:var(--coral);font-weight:700;}
-  .chip.lucky{background:#FBF0DA;}
-  .entry-row{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
+  .entry-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  select, input[type=date],input[type=time],input[type=number],input[type=text]{
+    padding:9px 10px;border:1px solid var(--line);border-radius:3px;font-family:'Work Sans',sans-serif;font-size:.92rem;background:#fff;
   }
-  .entry-row input[type=text]{
-    flex:1;
-    min-width:140px;
-    padding:8px 10px;
-    border:1px solid var(--line);
-    border-radius:3px;
-    font-family:'Work Sans',sans-serif;
-    font-size:.9rem;
-  }
-  label{
-    font-size:.82rem;
-    color:#5b6a72;
-    display:block;
-    margin-bottom:4px;
-  }
+  select{min-width:160px;}
+  label{font-size:.82rem;color:#5b6a72;display:block;margin-bottom:4px;}
   .field{margin-bottom:14px;}
-  input[type=date],input[type=time],input[type=number],input[type=text]{
-    width:100%;
-    padding:9px 10px;
-    border:1px solid var(--line);
-    border-radius:3px;
-    font-family:'Work Sans',sans-serif;
-    font-size:.92rem;
-    background:#fff;
-  }
-  .katalog-pick{
-    border:1px solid var(--line);
-    border-radius:4px;
-    padding:10px 12px;
-    margin-bottom:8px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-  }
+  .field input{width:100%;}
+  .katalog-pick{border:1px solid var(--line);border-radius:4px;padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
   .katalog-pick input[type=checkbox]{width:18px;height:18px;}
   .katalog-pick .lbl{flex:1;min-width:120px;}
   .katalog-pick input[type=number]{width:70px;}
@@ -230,100 +66,27 @@
   th,td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--line);font-size:.92rem;}
   th{font-family:'Oswald',sans-serif;font-size:.78rem;text-transform:uppercase;color:#5b6a72;}
   .points-num{font-family:'Oswald',sans-serif;font-size:1rem;}
-  .progress-cell{width:38%;}
-  .settings-section{margin-bottom:28px;}
-  .settings-section h3{font-size:1.05rem;margin-bottom:10px;}
-  .settings-row{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin-bottom:8px;
-  }
-  .settings-row input[type=text]{flex:2;}
-  .settings-row input[type=number]{flex:1;}
-  .backlink{
-    background:none;
-    border:none;
-    color:var(--court);
-    font-family:'Oswald',sans-serif;
-    font-size:.9rem;
-    text-transform:uppercase;
-    cursor:pointer;
-    padding:0;
-    margin-bottom:14px;
-    display:inline-block;
-  }
+  .backlink{background:none;border:none;color:var(--court);font-family:'Oswald',sans-serif;font-size:.9rem;text-transform:uppercase;cursor:pointer;padding:0;margin-bottom:14px;display:inline-block;}
   .hint{font-size:.82rem;color:#8a7550;margin-top:6px;}
-  .badge-target{
-    background:rgba(255,255,255,.15);
-    border-radius:3px;
-    padding:6px 10px;
-    font-size:.82rem;
-    font-family:'Oswald',sans-serif;
-  }
+  .fehler-banner{margin-top:8px;font-size:.8rem;color:#FBDCA0;background:rgba(0,0,0,.15);padding:8px 10px;border-radius:3px;word-break:break-word;}
 </style>
 </head>
 <body>
 <div id="app"></div>
 
 <script>
-let konfig = null;
-let spieltage = null;
-let view = { name: 'uebersicht', spieltagId: null };
-
-function defaultKonfig(){
-  return {
-    diensteKatalog: [
-      { name: 'Schiedsrichter', punkte: 3 },
-      { name: 'Zeitnehmer', punkte: 2 },
-      { name: 'Aufbau', punkte: 2 },
-      { name: 'Abbau', punkte: 2 },
-      { name: 'Kuchen/Pause', punkte: 1 }
-    ],
-    kader: [],
-    saisonziel: 15
-  };
-}
-
-const SEED_KADER = ['Marius','Jojo','Clemens','Küchi','Jakob','Konsti','Marc','Freddi','Konrad','David','Noah','Elias','Paul'];
-const SEED_DIENSTE = [
-  { name: 'Schreiber', punkte: 1 },
-  { name: 'Ballroller', punkte: 1 },
-  { name: 'Aufbau', punkte: 3 },
-  { name: 'Abbau', punkte: 3 },
-  { name: 'Werbung', punkte: 1 },
-  { name: 'Buffet', punkte: 1 },
-  { name: 'Werbeaufsteller', punkte: 1 }
+// ---------- Feste Daten (nicht editierbar) ----------
+const KADER = ['Marius','Jojo','Clemens','Wendy','Konrad','Freddy','Marc','Konsti','Jakob','Küchi','Noah','Elias','Domi','David','Paul'];
+const DIENSTE_KATALOG = [
+  { name:'Ballroller', punkte:5 },
+  { name:'Schreiber', punkte:5 },
+  { name:'Aufbau', punkte:1 },
+  { name:'Abbau', punkte:1 },
+  { name:'Tablets', punkte:3 },
+  { name:'Werbeaufsteller', punkte:1 },
+  { name:'Bier', punkte:3 },
+  { name:'Fahrer', punkte:3 }
 ];
-
-async function ensureSeedData(){
-  let changed = false;
-  SEED_KADER.forEach(n=>{
-    if(!konfig.kader.some(k=>k.toLowerCase()===n.toLowerCase())){
-      konfig.kader.push(n);
-      changed = true;
-    }
-  });
-  SEED_DIENSTE.forEach(sd=>{
-    const existing = konfig.diensteKatalog.find(d=>d.name.toLowerCase()===sd.name.toLowerCase());
-    if(existing){
-      if(existing.punkte !== sd.punkte){ existing.punkte = sd.punkte; changed = true; }
-    }else{
-      konfig.diensteKatalog.push({ name: sd.name, punkte: sd.punkte });
-      changed = true;
-    }
-  });
-  if(changed) await saveKonfig();
-}
-
-function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
-
-function withTimeout(promise, ms){
-  return Promise.race([
-    promise,
-    new Promise((_,reject)=> setTimeout(()=>reject(new Error('timeout')), ms))
-  ]);
-}
 
 // ---------- GitHub-Speicher ----------
 const GITHUB_OWNER = 'MariWelt';
@@ -337,25 +100,23 @@ function b64DecodeUtf8(str){ return decodeURIComponent(escape(atob(str.replace(/
 
 async function githubGet(){
   const res = await fetch(API_URL, {
-    headers: {
-      'Authorization': `Bearer ${GITHUB_TOKEN}`,
-      'Accept': 'application/vnd.github+json'
-    }
+    headers: { 'Authorization': `Bearer ${GITHUB_TOKEN}`, 'Accept': 'application/vnd.github+json' }
   });
   if(res.status === 404){ return { exists:false, sha:null, data:null }; }
-  if(!res.ok){ throw new Error('GitHub GET fehlgeschlagen: '+res.status); }
+  if(!res.ok){
+    const t = await res.text().catch(()=>'');
+    throw new Error(`GET fehlgeschlagen (${res.status}): ${t.slice(0,200)}`);
+  }
   const json = await res.json();
-  const data = JSON.parse(b64DecodeUtf8(json.content));
+  let data;
+  try{ data = JSON.parse(b64DecodeUtf8(json.content)); }
+  catch(e){ throw new Error('Antwort konnte nicht gelesen werden (JSON-Fehler): '+e.message); }
   return { exists:true, sha: json.sha, data };
 }
 
-async function githubSave(data){
-  const current = await githubGet();
-  const body = {
-    message: 'Spielplan aktualisiert',
-    content: b64EncodeUtf8(JSON.stringify(data, null, 2))
-  };
-  if(current.exists) body.sha = current.sha;
+async function githubPut(data, sha){
+  const body = { message: 'Spielplan aktualisiert', content: b64EncodeUtf8(JSON.stringify(data, null, 2)) };
+  if(sha) body.sha = sha;
   const res = await fetch(API_URL, {
     method: 'PUT',
     headers: {
@@ -366,137 +127,73 @@ async function githubSave(data){
     body: JSON.stringify(body)
   });
   if(!res.ok){
-    const t = await res.text();
-    throw new Error('GitHub PUT fehlgeschlagen: '+res.status+' '+t);
+    const t = await res.text().catch(()=>'');
+    throw new Error(`Speichern fehlgeschlagen (${res.status}): ${t.slice(0,300)}`);
   }
   return true;
 }
 
-let dataEverLoaded = false;
-let letzterFehler = false;
-let letzterFehlerText = '';
+let spieltage = [];
+let ladeFehler = '';
+let speicherFehler = '';
 
-async function loadData(){
-  let erfolg = false;
-  let letzterFehlerObj = null;
-  for(let i=0;i<4 && !erfolg;i++){
-    try{
-      const r = await withTimeout(githubGet(), 8000);
-      if(r.exists){
-        konfig = r.data.konfig || defaultKonfig();
-        spieltage = r.data.spieltage || [];
-      }else if(!dataEverLoaded){
-        konfig = defaultKonfig();
-        spieltage = [];
-      }
-      erfolg = true;
-    }catch(e){
-      letzterFehlerObj = e;
-      if(i<3) await wait(700);
-    }
+async function ladeSpieltage(){
+  try{
+    const r = await githubGet();
+    spieltage = r.exists && Array.isArray(r.data.spieltage) ? r.data.spieltage : [];
+    ladeFehler = '';
+    return true;
+  }catch(e){
+    ladeFehler = (e instanceof TypeError)
+      ? 'Netzwerkfehler (evtl. blockiert eine Firewall/ein Addon den Zugriff auf api.github.com): ' + e.message
+      : e.message;
+    return false;
   }
-  if(!dataEverLoaded && !erfolg){
-    konfig = defaultKonfig();
-    spieltage = [];
+}
+
+async function speichereSpieltage(){
+  try{
+    const current = await githubGet();
+    await githubPut({ spieltage }, current.exists ? current.sha : null);
+    speicherFehler = '';
+    return true;
+  }catch(e){
+    speicherFehler = (e instanceof TypeError)
+      ? 'Netzwerkfehler (evtl. blockiert eine Firewall/ein Addon den Zugriff auf api.github.com): ' + e.message
+      : e.message;
+    return false;
   }
-  letzterFehler = !erfolg;
-  letzterFehlerText = erfolg ? '' : (letzterFehlerObj ? String(letzterFehlerObj.message || letzterFehlerObj) : 'Unbekannter Fehler');
-  dataEverLoaded = true;
-  return erfolg;
 }
 
-let speicherFehler = false;
-let speicherFehlerText = '';
-
-async function holeFrischeRemoteDaten(){
-  const r = await withTimeout(githubGet(), 8000);
-  return r.exists ? r.data : { konfig: defaultKonfig(), spieltage: [] };
-}
-
-// Führt lokale Änderungen mit dem aktuellsten Remote-Stand zusammen, statt
-// blind zu überschreiben: Spieltage/Dienste/Kader, die zwischenzeitlich von
-// woanders dazugekommen sind, bleiben erhalten. Für bekannte IDs gewinnt
-// die lokale (gerade bearbeitete) Version.
-function datenZusammenfuehren(remote){
-  const localIds = new Set(spieltage.map(s=>s.id));
-  const fremdeSpieltage = (remote.spieltage||[]).filter(s=>!localIds.has(s.id));
-  const zusammengefuehrteSpieltage = [...spieltage, ...fremdeSpieltage];
-
-  const remoteKonfig = remote.konfig || defaultKonfig();
-  const kaderVereint = Array.from(new Set([...(remoteKonfig.kader||[]), ...konfig.kader]));
-  const katalogVereint = [...konfig.diensteKatalog];
-  (remoteKonfig.diensteKatalog||[]).forEach(rd=>{
-    if(!katalogVereint.some(d=>d.name.toLowerCase()===rd.name.toLowerCase())){
-      katalogVereint.push(rd);
-    }
-  });
-
-  return {
-    konfig: { diensteKatalog: katalogVereint, kader: kaderVereint, saisonziel: konfig.saisonziel },
-    spieltage: zusammengefuehrteSpieltage
-  };
-}
-
-async function speichereAlles(){
-  let letzterFehlerObj = null;
-  for(let i=0;i<3;i++){
-    try{
-      const remote = await holeFrischeRemoteDaten();
-      const merged = datenZusammenfuehren(remote);
-      konfig = merged.konfig;
-      spieltage = merged.spieltage;
-      await withTimeout(githubSave(merged), 10000);
-      speicherFehler = false;
-      speicherFehlerText = '';
-      return true;
-    }catch(e){
-      letzterFehlerObj = e;
-      if(i<2) await wait(700);
-    }
-  }
-  speicherFehler = true;
-  speicherFehlerText = letzterFehlerObj ? String(letzterFehlerObj.message || letzterFehlerObj) : 'Unbekannter Fehler';
-  return false;
-}
-
-async function saveKonfig(){ return speichereAlles(); }
-async function saveSpieltage(){ return speichereAlles(); }
-
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
 function fmtDatum(d){
   if(!d) return '';
   const [y,m,day] = d.split('-');
   return `${day}.${m}.${y}`;
 }
+function eintragName(e){ return typeof e === 'string' ? e : (e && e.name) || ''; }
 
-function dienstBesetzt(dienst){
-  return dienst.eingetragen.length >= dienst.benoetigt;
-}
-function spieltagVollstaendig(sp){
-  return sp.dienste.every(dienstBesetzt);
-}
-function offenePlaetze(sp){
-  return sp.dienste.reduce((sum,d)=> sum + Math.max(0, d.benoetigt - d.eingetragen.length), 0);
-}
-function gesamtPlaetze(sp){
-  return sp.dienste.reduce((sum,d)=> sum + d.benoetigt, 0);
-}
-function besetztePlaetze(sp){
-  return sp.dienste.reduce((sum,d)=> sum + d.eingetragen.length, 0);
-}
+function dienstBesetzt(d){ return d.eingetragen.length >= d.benoetigt; }
+function spieltagVollstaendig(sp){ return sp.dienste.every(dienstBesetzt); }
+function gesamtPlaetze(sp){ return sp.dienste.reduce((s,d)=> s+d.benoetigt, 0); }
+function besetztePlaetze(sp){ return sp.dienste.reduce((s,d)=> s+d.eingetragen.length, 0); }
 
 function punkteProSpieler(){
   const map = {};
-  konfig.kader.forEach(n => map[n] = 0);
+  KADER.forEach(n=> map[n]=0);
   spieltage.forEach(sp=>{
     sp.dienste.forEach(d=>{
       d.eingetragen.forEach(e=>{
-        map[e.name] = (map[e.name]||0) + d.punkte;
+        const name = eintragName(e);
+        if(map[name] === undefined) map[name] = 0;
+        map[name] += d.punkte;
       });
     });
   });
   return map;
 }
 
+let view = { name:'uebersicht' };
 function setView(v){ view = v; render(); }
 
 function render(){
@@ -505,32 +202,29 @@ function render(){
     <header class="top">
       <div class="row">
         <h1>Spielplan</h1>
-        <div class="badge-target">Saisonziel: ${konfig.saisonziel} Punkte</div>
       </div>
       <div class="row" style="margin-top:10px;">
         <nav class="tabs">
           <button class="${view.name==='uebersicht'?'active':''}" onclick="setView({name:'uebersicht'})">Übersicht</button>
           <button class="${view.name==='punkte'?'active':''}" onclick="setView({name:'punkte'})">Punkte</button>
-          <button class="${view.name==='einstellungen'?'active':''}" onclick="setView({name:'einstellungen'})">Einstellungen</button>
         </nav>
         <button class="ghost" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.35);" onclick="refresh()">↻ Aktualisieren</button>
       </div>
-      ${letzterFehler? `<div style="margin-top:8px;font-size:.8rem;color:#FBDCA0;">⚠ Laden fehlgeschlagen: ${escapeHtml(letzterFehlerText)}</div>` : ''}
-      ${speicherFehler? `<div style="margin-top:8px;font-size:.8rem;color:#FBDCA0;">⚠ Speichern fehlgeschlagen: ${escapeHtml(speicherFehlerText)}</div>` : ''}
+      ${ladeFehler? `<div class="fehler-banner">⚠ Laden fehlgeschlagen: ${escapeHtml(ladeFehler)}</div>` : ''}
+      ${speicherFehler? `<div class="fehler-banner">⚠ Speichern fehlgeschlagen: ${escapeHtml(speicherFehler)}</div>` : ''}
     </header>
     <main id="main"></main>
   `;
   const main = document.getElementById('main');
   if(view.name==='uebersicht') main.innerHTML = renderUebersicht();
-  else if(view.name==='neu') main.innerHTML = renderNeuerSpieltag();
-  else if(view.name==='bearbeiten') main.innerHTML = renderBearbeiten(view.spieltagId);
+  else if(view.name==='neu') main.innerHTML = renderForm(null);
+  else if(view.name==='bearbeiten') main.innerHTML = renderForm(view.spieltagId);
   else if(view.name==='detail') main.innerHTML = renderDetail(view.spieltagId);
   else if(view.name==='punkte') main.innerHTML = renderPunkte();
-  else if(view.name==='einstellungen') main.innerHTML = renderEinstellungen();
 }
 
 async function refresh(){
-  await loadData();
+  await ladeSpieltage();
   render();
 }
 
@@ -560,58 +254,11 @@ function renderUebersicht(){
   `;
 }
 
-// ---------- Neuer Spieltag ----------
-function renderNeuerSpieltag(){
-  const rows = konfig.diensteKatalog.map((d,i)=>`
-    <div class="katalog-pick">
-      <input type="checkbox" id="pick-${i}">
-      <div class="lbl">${escapeHtml(d.name)} <span style="color:#8a7550;font-size:.8rem;">(${d.punkte} Pkt.)</span></div>
-      <label style="margin:0;">Anzahl
-        <input type="number" id="anz-${i}" min="1" value="1">
-      </label>
-    </div>
-  `).join('');
-  return `
-    <button class="backlink" onclick="setView({name:'uebersicht'})">← Zurück</button>
-    <h2 style="margin-bottom:16px;">Neuen Spieltag anlegen</h2>
-    <div class="field"><label>Datum</label><input type="date" id="f-datum"></div>
-    <div class="field"><label>Uhrzeit</label><input type="time" id="f-uhrzeit"></div>
-    <div class="field"><label>Ort</label><input type="text" id="f-ort" placeholder="z.B. Sporthalle 3"></div>
-    <div class="field"><label>Gegner / Beschreibung</label><input type="text" id="f-gegner" placeholder="z.B. SG Musterstadt"></div>
-    <div class="field">
-      <label>Benötigte Dienste</label>
-      ${rows || '<div class="hint">Noch keine Dienste im Katalog. Leg sie zuerst unter Einstellungen an.</div>'}
-    </div>
-    <button class="primary" onclick="spieltagSpeichern()">Spieltag speichern</button>
-  `;
-}
-
-async function spieltagSpeichern(){
-  const datum = document.getElementById('f-datum').value;
-  if(!datum){ alert('Bitte ein Datum angeben.'); return; }
-  const uhrzeit = document.getElementById('f-uhrzeit').value;
-  const ort = document.getElementById('f-ort').value.trim();
-  const gegner = document.getElementById('f-gegner').value.trim();
-  const dienste = [];
-  konfig.diensteKatalog.forEach((d,i)=>{
-    const box = document.getElementById(`pick-${i}`);
-    if(box && box.checked){
-      const anz = parseInt(document.getElementById(`anz-${i}`).value) || 1;
-      dienste.push({ id: uid(), name: d.name, punkte: d.punkte, benoetigt: anz, eingetragen: [] });
-    }
-  });
-  const neu = { id: uid(), datum, uhrzeit, ort, gegner, dienste };
-  spieltage.push(neu);
-  await saveSpieltage();
-  setView({name:'detail', spieltagId: neu.id});
-}
-
-// ---------- Bearbeiten ----------
-function renderBearbeiten(id){
-  const sp = spieltage.find(s=>s.id===id);
-  if(!sp) return '<div class="empty">Spieltag nicht gefunden.</div>';
-  const rows = konfig.diensteKatalog.map((d,i)=>{
-    const bestehend = sp.dienste.find(x=>x.name.toLowerCase()===d.name.toLowerCase());
+// ---------- Neu / Bearbeiten ----------
+function renderForm(spieltagId){
+  const sp = spieltagId ? spieltage.find(s=>s.id===spieltagId) : null;
+  const rows = DIENSTE_KATALOG.map((d,i)=>{
+    const bestehend = sp ? sp.dienste.find(x=>x.name===d.name) : null;
     return `
     <div class="katalog-pick">
       <input type="checkbox" id="pick-${i}" ${bestehend?'checked':''}>
@@ -621,34 +268,48 @@ function renderBearbeiten(id){
       <label style="margin:0;">Anzahl
         <input type="number" id="anz-${i}" min="1" value="${bestehend? bestehend.benoetigt : 1}">
       </label>
-    </div>
-  `;}).join('');
+    </div>`;
+  }).join('');
   return `
-    <button class="backlink" onclick="setView({name:'detail', spieltagId:'${sp.id}'})">← Zurück zum Spieltag</button>
-    <h2 style="margin-bottom:16px;">Spieltag bearbeiten</h2>
-    <div class="field"><label>Datum</label><input type="date" id="f-datum" value="${sp.datum||''}"></div>
-    <div class="field"><label>Uhrzeit</label><input type="time" id="f-uhrzeit" value="${sp.uhrzeit||''}"></div>
-    <div class="field"><label>Ort</label><input type="text" id="f-ort" value="${escapeHtml(sp.ort||'')}" placeholder="z.B. Sporthalle 3"></div>
-    <div class="field"><label>Gegner / Beschreibung</label><input type="text" id="f-gegner" value="${escapeHtml(sp.gegner||'')}" placeholder="z.B. SG Musterstadt"></div>
+    <button class="backlink" onclick="setView(${sp? `{name:'detail', spieltagId:'${sp.id}'}` : `{name:'uebersicht'}`})">← Zurück</button>
+    <h2 style="margin-bottom:16px;">${sp? 'Spieltag bearbeiten' : 'Neuen Spieltag anlegen'}</h2>
+    <div class="field"><label>Datum</label><input type="date" id="f-datum" value="${sp? sp.datum||'':''}"></div>
+    <div class="field"><label>Uhrzeit</label><input type="time" id="f-uhrzeit" value="${sp? sp.uhrzeit||'':''}"></div>
+    <div class="field"><label>Ort</label><input type="text" id="f-ort" value="${sp? escapeHtml(sp.ort||''):''}" placeholder="z.B. Sporthalle 3"></div>
+    <div class="field"><label>Gegner / Beschreibung</label><input type="text" id="f-gegner" value="${sp? escapeHtml(sp.gegner||''):''}" placeholder="z.B. SG Musterstadt"></div>
     <div class="field">
       <label>Benötigte Dienste</label>
-      ${rows || '<div class="hint">Noch keine Dienste im Katalog. Leg sie zuerst unter Einstellungen an.</div>'}
+      ${rows}
     </div>
-    <button class="primary" onclick="spieltagAktualisieren('${sp.id}')">Änderungen speichern</button>
+    <button class="primary" onclick="formSpeichern(${sp? `'${sp.id}'` : 'null'})">${sp? 'Änderungen speichern' : 'Spieltag speichern'}</button>
   `;
 }
 
-async function spieltagAktualisieren(id){
-  const sp = spieltage.find(s=>s.id===id);
-  if(!sp) return;
+async function formSpeichern(spieltagId){
   const datum = document.getElementById('f-datum').value;
   if(!datum){ alert('Bitte ein Datum angeben.'); return; }
+  const uhrzeit = document.getElementById('f-uhrzeit').value;
+  const ort = document.getElementById('f-ort').value.trim();
+  const gegner = document.getElementById('f-gegner').value.trim();
+
+  let sp = spieltagId ? spieltage.find(s=>s.id===spieltagId) : null;
+  const alteDienste = sp ? sp.dienste : [];
 
   const entfernteMitEintraegen = [];
-  konfig.diensteKatalog.forEach((d,i)=>{
+  const neueDienste = [];
+  DIENSTE_KATALOG.forEach((d,i)=>{
     const box = document.getElementById(`pick-${i}`);
-    const bestehend = sp.dienste.find(x=>x.name.toLowerCase()===d.name.toLowerCase());
-    if(bestehend && (!box || !box.checked) && bestehend.eingetragen.length){
+    const bestehend = alteDienste.find(x=>x.name===d.name);
+    if(box && box.checked){
+      const anz = parseInt(document.getElementById(`anz-${i}`).value) || 1;
+      if(bestehend){
+        bestehend.benoetigt = anz;
+        bestehend.punkte = d.punkte;
+        neueDienste.push(bestehend);
+      }else{
+        neueDienste.push({ id: uid(), name: d.name, punkte: d.punkte, benoetigt: anz, eingetragen: [] });
+      }
+    }else if(bestehend && bestehend.eingetragen.length){
       entfernteMitEintraegen.push(d.name);
     }
   });
@@ -657,29 +318,14 @@ async function spieltagAktualisieren(id){
     if(!ok) return;
   }
 
-  sp.datum = datum;
-  sp.uhrzeit = document.getElementById('f-uhrzeit').value;
-  sp.ort = document.getElementById('f-ort').value.trim();
-  sp.gegner = document.getElementById('f-gegner').value.trim();
+  if(sp){
+    sp.datum = datum; sp.uhrzeit = uhrzeit; sp.ort = ort; sp.gegner = gegner; sp.dienste = neueDienste;
+  }else{
+    sp = { id: uid(), datum, uhrzeit, ort, gegner, dienste: neueDienste };
+    spieltage.push(sp);
+  }
 
-  const neueDienste = [];
-  konfig.diensteKatalog.forEach((d,i)=>{
-    const box = document.getElementById(`pick-${i}`);
-    if(box && box.checked){
-      const anz = parseInt(document.getElementById(`anz-${i}`).value) || 1;
-      const bestehend = sp.dienste.find(x=>x.name.toLowerCase()===d.name.toLowerCase());
-      if(bestehend){
-        bestehend.punkte = d.punkte;
-        bestehend.benoetigt = anz;
-        neueDienste.push(bestehend);
-      }else{
-        neueDienste.push({ id: uid(), name: d.name, punkte: d.punkte, benoetigt: anz, eingetragen: [] });
-      }
-    }
-  });
-  sp.dienste = neueDienste;
-
-  await saveSpieltage();
+  await speichereSpieltage();
   setView({name:'detail', spieltagId: sp.id});
 }
 
@@ -689,27 +335,8 @@ async function spieltagLoeschen(id){
   const ok = confirm(`Spieltag am ${fmtDatum(sp.datum)} wirklich löschen? Das kann nicht rückgängig gemacht werden.`);
   if(!ok) return;
   spieltage = spieltage.filter(s=>s.id!==id);
-  await entferneSpieltagRemote(id);
+  await speichereSpieltage();
   setView({name:'uebersicht'});
-}
-
-async function entferneSpieltagRemote(geloeschteId){
-  for(let i=0;i<3;i++){
-    try{
-      const remote = await holeFrischeRemoteDaten();
-      const merged = datenZusammenfuehren(remote);
-      merged.spieltage = merged.spieltage.filter(s=>s.id!==geloeschteId);
-      konfig = merged.konfig;
-      spieltage = merged.spieltage;
-      await withTimeout(githubSave(merged), 10000);
-      speicherFehler = false;
-      return true;
-    }catch(e){
-      if(i<2) await wait(700);
-    }
-  }
-  speicherFehler = true;
-  return false;
 }
 
 // ---------- Detail ----------
@@ -718,11 +345,14 @@ function renderDetail(id){
   if(!sp) return '<div class="empty">Spieltag nicht gefunden.</div>';
   const blocks = sp.dienste.map(d=>{
     const offen = d.benoetigt - d.eingetragen.length;
+    const belegteNamen = d.eingetragen.map(eintragName);
     const chips = d.eingetragen.map((e,idx)=>`
-      <div class="chip ${e.zugelost?'lucky':''}">${e.zugelost?'🎲 ':''}${escapeHtml(e.name)}
+      <div class="chip">${escapeHtml(eintragName(e))}
         <span class="x" onclick="eintragEntfernen('${sp.id}','${d.id}',${idx})">✕</span>
       </div>
     `).join('');
+    const optionen = KADER.filter(n=>!belegteNamen.includes(n))
+      .map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');
     return `
       <div class="dienst-block">
         <div class="dienst-head">
@@ -732,9 +362,11 @@ function renderDetail(id){
         <div class="chips">${chips || '<span class="hint">Noch niemand eingetragen.</span>'}</div>
         ${offen>0? `
           <div class="entry-row">
-            <input type="text" id="name-${d.id}" placeholder="Dein Name">
+            <select id="sel-${d.id}">
+              <option value="">-- Name wählen --</option>
+              ${optionen}
+            </select>
             <button class="primary" onclick="eintragen('${sp.id}','${d.id}')">Eintragen</button>
-            <button class="ghost" onclick="zulosen('${sp.id}','${d.id}')">🎲 Zulosen (${offen})</button>
           </div>
         `: '<div class="hint">Alle Plätze besetzt.</div>'}
       </div>
@@ -757,16 +389,14 @@ function renderDetail(id){
 }
 
 async function eintragen(spId, dienstId){
-  const input = document.getElementById(`name-${dienstId}`);
-  const name = input.value.trim();
+  const sel = document.getElementById(`sel-${dienstId}`);
+  const name = sel.value;
   if(!name) return;
   const sp = spieltage.find(s=>s.id===spId);
   const d = sp.dienste.find(x=>x.id===dienstId);
   if(d.eingetragen.length >= d.benoetigt){ alert('Dieser Dienst ist bereits voll besetzt.'); return; }
-  if(d.eingetragen.some(e=>e.name.toLowerCase()===name.toLowerCase())){ alert('Du bist hier schon eingetragen.'); return; }
-  d.eingetragen.push({ name, zugelost:false });
-  if(!konfig.kader.includes(name)){ konfig.kader.push(name); await saveKonfig(); }
-  await saveSpieltage();
+  d.eingetragen.push(name);
+  await speichereSpieltage();
   render();
 }
 
@@ -774,214 +404,33 @@ async function eintragEntfernen(spId, dienstId, idx){
   const sp = spieltage.find(s=>s.id===spId);
   const d = sp.dienste.find(x=>x.id===dienstId);
   d.eingetragen.splice(idx,1);
-  await saveSpieltage();
+  await speichereSpieltage();
   render();
-}
-
-async function zulosen(spId, dienstId){
-  const sp = spieltage.find(s=>s.id===spId);
-  const d = sp.dienste.find(x=>x.id===dienstId);
-  const offen = d.benoetigt - d.eingetragen.length;
-  if(offen<=0) return;
-  const belegteNamen = d.eingetragen.map(e=>e.name);
-  let pool = konfig.kader.filter(n=>!belegteNamen.includes(n));
-  if(pool.length===0){ alert('Kein Kader hinterlegt bzw. alle bereits eingetragen. Kader unter Einstellungen pflegen.'); return; }
-  for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
-  const gezogen = pool.slice(0, offen);
-  gezogen.forEach(name=> d.eingetragen.push({ name, zugelost:true }));
-  await saveSpieltage();
-  render();
-  if(gezogen.length < offen){
-    alert(`Nur ${gezogen.length} von ${offen} Plätzen konnten zugelost werden – der Kader ist zu klein.`);
-  }
 }
 
 // ---------- Punkte ----------
 function renderPunkte(){
   const map = punkteProSpieler();
   const namen = Object.keys(map).sort((a,b)=> map[b]-map[a]);
+  const max = Math.max(1, ...namen.map(n=>map[n]));
   const rows = namen.map(n=>{
     const p = map[n];
-    const pct = Math.min(100, Math.round(p/konfig.saisonziel*100));
-    const erreicht = p >= konfig.saisonziel;
+    const pct = Math.round(p/max*100);
     return `
       <tr>
         <td>${escapeHtml(n)}</td>
         <td class="points-num">${p}</td>
-        <td class="progress-cell">
-          <div class="bar-bg"><div class="bar-fill ${erreicht?'full':''}" style="width:${pct}%;"></div></div>
-        </td>
-        <td>${erreicht? '✓ erreicht' : (konfig.saisonziel-p)+' fehlen'}</td>
+        <td style="width:40%;"><div class="bar-bg"><div class="bar-fill" style="width:${pct}%;"></div></div></td>
       </tr>
     `;
   }).join('');
   return `
     <h2 style="margin-bottom:16px;">Punkteübersicht</h2>
-    ${namen.length? `
     <table>
-      <thead><tr><th>Name</th><th>Punkte</th><th>Fortschritt</th><th>Status</th></tr></thead>
+      <thead><tr><th>Name</th><th>Punkte</th><th></th></tr></thead>
       <tbody>${rows}</tbody>
-    </table>` : '<div class="empty">Noch keine Punkte vergeben. Sobald sich jemand einträgt, erscheint er hier.</div>'}
+    </table>
   `;
-}
-
-// ---------- Einstellungen ----------
-function renderEinstellungen(){
-  const katalogRows = konfig.diensteKatalog.map((d,i)=>`
-    <div class="settings-row">
-      <input type="text" value="${escapeHtml(d.name)}" onchange="katalogNameAendern(${i}, this.value)">
-      <input type="number" value="${d.punkte}" onchange="katalogPunkteAendern(${i}, this.value)"> Pkt.
-      <button class="ghost" onclick="katalogEntfernen(${i})">✕</button>
-    </div>
-  `).join('');
-  const kaderChips = konfig.kader.map((n,i)=>`
-    <div class="chip">${escapeHtml(n)} <span class="x" onclick="kaderEntfernen(${i})">✕</span></div>
-  `).join('');
-  return `
-    <h2 style="margin-bottom:20px;">Einstellungen</h2>
-
-    <div class="settings-section">
-      <h3>Dienste-Katalog</h3>
-      ${katalogRows || '<div class="hint">Noch keine Dienste angelegt.</div>'}
-      <div class="settings-row" style="margin-top:10px;">
-        <input type="text" id="neu-dienst-name" placeholder="Neuer Dienst, z.B. Fahrdienst">
-        <input type="number" id="neu-dienst-punkte" placeholder="Punkte" value="1">
-        <button class="primary" onclick="katalogHinzufuegen()">+</button>
-      </div>
-    </div>
-
-    <div class="settings-section">
-      <h3>Kader (für Zulosung)</h3>
-      <div class="chips">${kaderChips || '<span class="hint">Noch niemand im Kader.</span>'}</div>
-      <div class="settings-row">
-        <input type="text" id="neu-spieler-name" placeholder="Name hinzufügen">
-        <button class="primary" onclick="kaderHinzufuegen()">+</button>
-      </div>
-    </div>
-
-    <div class="settings-section">
-      <h3>Saisonziel</h3>
-      <div class="field" style="max-width:200px;">
-        <label>Punkte pro Spieler bis Saisonende</label>
-        <input type="number" value="${konfig.saisonziel}" onchange="saisonzielAendern(this.value)">
-      </div>
-    </div>
-
-    <div class="settings-section">
-      <h3>Datensicherung</h3>
-      <div class="hint" style="margin-bottom:10px;">Lade dir hin und wieder eine Sicherung herunter – falls die Synchronisation mal hakt, kannst du sie hier wieder einspielen.</div>
-      <div class="settings-row">
-        <button class="ghost" onclick="datenSichern()">⬇ Sicherung herunterladen</button>
-        <label class="ghost" style="cursor:pointer;display:inline-flex;align-items:center;">
-          ⬆ Sicherung einspielen
-          <input type="file" accept="application/json" style="display:none;" onchange="datenWiederherstellen(this)">
-        </label>
-      </div>
-    </div>
-  `;
-}
-
-function datenSichern(){
-  const backup = { konfig, spieltage, exportiertAm: new Date().toISOString() };
-  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `spielplan-sicherung-${new Date().toISOString().slice(0,10)}.json`;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-}
-
-async function datenWiederherstellen(input){
-  const file = input.files[0];
-  if(!file) return;
-  try{
-    const text = await file.text();
-    const backup = JSON.parse(text);
-    if(!backup.konfig || !backup.spieltage){ alert('Diese Datei sieht nicht wie eine gültige Sicherung aus.'); return; }
-    const ok = confirm('Aktuellen Stand mit dieser Sicherung überschreiben? Das kann nicht rückgängig gemacht werden.');
-    if(!ok) return;
-    konfig = backup.konfig;
-    spieltage = backup.spieltage;
-    await hartUeberschreiben();
-    render();
-  }catch(e){
-    alert('Die Datei konnte nicht gelesen werden.');
-  }
-  input.value = '';
-}
-
-async function katalogNameAendern(i,val){ konfig.diensteKatalog[i].name = val.trim(); await saveKonfig(); }
-async function katalogPunkteAendern(i,val){ konfig.diensteKatalog[i].punkte = parseInt(val)||0; await saveKonfig(); }
-async function katalogEntfernen(i){
-  const name = konfig.diensteKatalog[i].name;
-  konfig.diensteKatalog.splice(i,1);
-  await entferneAusKonfigRemote(d=> d.name.toLowerCase()!==name.toLowerCase(), null);
-  render();
-}
-async function katalogHinzufuegen(){
-  const name = document.getElementById('neu-dienst-name').value.trim();
-  const punkte = parseInt(document.getElementById('neu-dienst-punkte').value)||1;
-  if(!name) return;
-  konfig.diensteKatalog.push({name,punkte});
-  await saveKonfig();
-  render();
-}
-async function kaderHinzufuegen(){
-  const name = document.getElementById('neu-spieler-name').value.trim();
-  if(!name || konfig.kader.includes(name)) return;
-  konfig.kader.push(name);
-  await saveKonfig();
-  render();
-}
-async function kaderEntfernen(i){
-  const name = konfig.kader[i];
-  konfig.kader.splice(i,1);
-  await entferneAusKonfigRemote(null, n=> n!==name);
-  render();
-}
-async function saisonzielAendern(val){ konfig.saisonziel = parseInt(val)||1; await saveKonfig(); render(); }
-
-// Für Löschungen im Katalog/Kader: wie beim Spieltag-Löschen erst den
-// aktuellsten Remote-Stand holen, zusammenführen, und danach den lokal
-// entfernten Eintrag erneut herausfiltern, damit er nicht aus der Cloud
-// wieder auftaucht.
-async function entferneAusKonfigRemote(katalogFilter, kaderFilter){
-  for(let i=0;i<3;i++){
-    try{
-      const remote = await holeFrischeRemoteDaten();
-      const merged = datenZusammenfuehren(remote);
-      if(katalogFilter) merged.konfig.diensteKatalog = merged.konfig.diensteKatalog.filter(katalogFilter);
-      if(kaderFilter) merged.konfig.kader = merged.konfig.kader.filter(kaderFilter);
-      konfig = merged.konfig;
-      spieltage = merged.spieltage;
-      await withTimeout(githubSave(merged), 10000);
-      speicherFehler = false;
-      return true;
-    }catch(e){
-      if(i<2) await wait(700);
-    }
-  }
-  speicherFehler = true;
-  return false;
-}
-
-// Sicherung einspielen soll den Stand HART überschreiben (kein Merge),
-// das ist hier ausdrücklich gewollt.
-async function hartUeberschreiben(){
-  for(let i=0;i<3;i++){
-    try{
-      await withTimeout(githubSave({ konfig, spieltage }), 10000);
-      speicherFehler = false;
-      return true;
-    }catch(e){
-      if(i<2) await wait(700);
-    }
-  }
-  speicherFehler = true;
-  return false;
 }
 
 function escapeHtml(s){
@@ -990,12 +439,11 @@ function escapeHtml(s){
 
 (async function init(){
   document.getElementById('app').innerHTML = '<div class="empty">Lädt…</div>';
-  const ok = await loadData();
-  if(ok) await ensureSeedData();
+  await ladeSpieltage();
   render();
   setInterval(async ()=>{
     if(view.name==='uebersicht' || view.name==='punkte'){
-      await loadData();
+      await ladeSpieltage();
       render();
     }
   }, 30000);
